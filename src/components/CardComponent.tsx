@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Card({ figure, value }: { figure: string, value: number }) {
+export default function CardComponent({ figure, value }: { figure: string, value: number }) {
 
   return (<>
     <Image
