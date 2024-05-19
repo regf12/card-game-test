@@ -46,15 +46,17 @@ export default function GameTable({ }) {
   }
 
   const verifyVictory = () => {
-    if (decks.length === 0) return false;
+    setShowVictory(false);
 
-    const lastValues = decks.map(array => {
-      if (array.length === 0) return null;
+    if (decks.length === 3 && numero != null) {
+      const lastValues = decks.map(array => {
+        if (array.length === 0) return null;
 
-      return array[array.length - 1].value;
-    });
+        return array[array.length - 1].value;
+      });
 
-    setShowVictory(lastValues.every(value => value === numero));
+      setShowVictory(lastValues.every(value => value === numero));
+    }
   }
 
   useEffect(() => {
@@ -72,26 +74,26 @@ export default function GameTable({ }) {
       <div className="w-full h-full">
         <div className="container mx-auto">
 
-          <div className="px-3 py-5 flex justify-between">
-            <span>{numero != null ? <h3>Valor objetivo: {numero}</h3> : null}</span>
-            <button onClick={resetGame}>Reset Game</button>
+          <div className="px-5 py-5 flex justify-around items-center">
+            <span className="font-bold">{numero ? <h3>Valor Objetivo: {numero == 1 ? 'A' : numero}</h3> : null}</span>
+            <button className="bg-[gray] py-2 px-4 rounded-[8px] hover:bg-[brown]" onClick={resetGame}>Reset Game</button>
           </div>
 
           <div className="px-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 py-5">
             {decks.map((deck, index) => (
               deck ? <div key={index} className="flex justify-center items-center p-2">
-                <div className="border border-gray-200 rounded p-2 w-[120px] h-[170px]">
+                <div className="flex justify-center atems-center border border-gray-200 rounded-[20px] p-2 w-[230px] h-[315px]">
 
-                  {deck.length ? <span onClick={() => moveCard(index, deck[deck.length - 1].name)}>
+                  {deck.length ? <div onClick={() => moveCard(index, deck[deck.length - 1].name)} className="relative flex w-100 h-100 min-w-100 min-h-100 justify-center atems-center">
                     {deck[deck.length - 1] ? <CardComponent figure={deck[deck.length - 1].figure} value={deck[deck.length - 1].value} /> : null}
-                  </span> : null}
+                  </div> : null}
 
                 </div>
               </div> : null
             ))}
           </div>
 
-          {showVictory && <div className="px-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 py-5">
+          {showVictory && <div className="px-5 py-5 flex justify-center items-center">
             <Notify />
           </div>}
 

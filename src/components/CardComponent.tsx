@@ -4,10 +4,10 @@ export default function CardComponent({ figure, value }: { figure: string, value
 
   return (<>
     <Image
-      src={`/images/${figure}-${value}.png`}
+      src={`/svg/${figure}-${value}.svg`}
       alt={`${figure}-${value}`}
-      width={100}
-      height={140}
+      fill
+      className="card-component max-w-100 h-auto"
     />
   </>)
 }
