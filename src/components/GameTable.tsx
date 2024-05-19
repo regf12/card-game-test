@@ -1,4 +1,5 @@
 import { useState, useEffect, MouseEvent } from "react";
+import Card from "./Card"
 
 interface Card {
   name: string;
@@ -70,7 +71,11 @@ export default function GameTable({ }) {
   };
 
   const resetGame = () => {
-    setDecks([shuffleArray(deckDefault), [], []]);
+    setDecks([[],[],[]])
+
+    setTimeout(() => {
+      setDecks([shuffleArray(deckDefault), [], []]);
+    }, 1);
   }
 
   useEffect(() => {
@@ -95,10 +100,9 @@ export default function GameTable({ }) {
             <button onClick={resetGame}>Reset Game</button>
           </div>
 
-          <hr />
+          {/* <hr />
 
           <div className="px-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 py-5">
-
             {decks.map((deck, index) => (
               <div key={index} className="border border-gray-200 rounded flex justify-center items-center flex-col">
                 {deck.map((card: Card, index) => (
@@ -106,17 +110,17 @@ export default function GameTable({ }) {
                 ))}
               </div>
             ))}
-
           </div>
 
-          <hr />
+          <hr /> */}
 
           <div className="px-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 py-5">
 
             {decks.map((deck, index) => (
               <div key={index} className="border border-gray-200 rounded flex justify-center items-center">
                 <span onClick={() => moveCard(index, deck[deck.length - 1].name)}>
-                  {deck[deck.length - 1] ? deck[deck.length - 1].name : null}
+                  {/* {deck[deck.length - 1] ? deck[deck.length - 1].name : null} */}
+                  {deck[deck.length - 1] ? <Card figure={deck[deck.length - 1].figure} value={deck[deck.length - 1].value} /> : null}
                 </span>
               </div>
             ))}
